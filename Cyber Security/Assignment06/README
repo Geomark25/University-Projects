@@ -1,0 +1,65 @@
+Team members:
+
+    Sfikas Panagiotis       AM: 2021030053
+    Polichronakis Basilis   AM: 2021030101
+
+Code description:
+
+    firewall():
+        This is the main function that is responsible for running and executing 
+        the code. Inside it there is an if function that parses the user input 
+        and calls the appropriate function each time.
+
+    First if:
+        Checks if user has called the script using sudo privileges
+
+    -config:
+        When the user addresses the script with this modifier the 'dig' function 
+        is called in order to get the IP of each domain. The +short is used in 
+        order to just load the IP address and not any other data from the dig 
+        function. To improve the responsiveness of the program multiple DNS 
+        queries happen in the background. To achieve this we use the '&' at the 
+        end of each line we want to happen in the background, also the wait 
+        function is used to stall the program form continuing with out having 
+        finished parsing all the DNS queries. After that, the rules to reject the 
+        IPs are made and then stored inside the corresponding iptables.
+
+    -save:
+        When this function is called the corresponding iptables are stored in the
+        appropriate files.
+
+    -load:
+        When this modifier is called when using the script the '-restore' function
+        is used to load the data from the corresponding rule files.
+
+    -reset:
+        When this function is called the '-F' modifier is used after the iptables
+        in order to clear those tables and then with the use of '-P INPUT ACCEPT'
+        the script now allows for all IPs to be accepted in the system.
+
+    -list:
+        When this modifier is used the script prints all the available rules 
+        inside the iptables using the '-L' modifier.
+        
+    -help:
+        Lastly, when the script is called using this modifier instruction on how
+        to run the program are displayed in the terminal.
+
+Theoretical question:
+
+    Can you see ads?
+        Most of the adds displayed on the browser are blocked but unfortunately some 
+        of them persist.
+
+    Do they load?
+        Some of them do and thats because most advertising websites use multiple 
+        domains and IPs to send the advertising packets.
+
+    Why some ads persist?
+        As sed before some ads persist dew to multiple domains or IPs used by 
+        advertising networks. An other reason for such thing to happen is cashing
+        of ads inside the browser, when this happen the IPrules may take some time 
+        to take effect. Lastly, the script blocks IP address using DNS queries, but 
+        some advertisers may encode their ads inside HTTPS connections which the 
+        script does not detect. 
+

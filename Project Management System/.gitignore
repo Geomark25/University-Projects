@@ -1,0 +1,22 @@
+# Environments and Secrets
+.env
+*.log
+.pytest_cache/
+
+# Dependencies
+node_modules/
+vendor/
+target/
+__pycache__/
+
+#Docker & OS
+.docker/
+.DS_Store
+
+#Databases
+databases/
+
+#unit Tests
+unitTests/
+
+PMS.code-workspace

@@ -1,0 +1,30 @@
+This application uses React for the frontend and python3 for backend.
+
+In order to run, make sure to have the following installed:
+
+-npm
+-docker
+-docker-compose
+-python3-pip
+
+For app initialization, run the following:
+
+sudo docker compose up team-db user-db task-db
+
+After that, run ./restore.sh
+In case the above does not work, simply copy the commands located inside and execute them seperately.
+
+Then, sudo docker compose down.
+
+The above section will ensure that the databases have been properly initialized with the tables and some example data.
+
+The main command is the following:
+
+sudo IP=$(curl ifconfig.me) docker compose up --build
+
+This will fetch our public IP which the frontend will listen to
+and it will build the 3 microservices with the required python modules.
+
+
+To connect to the site, simply type the IP of the host machine that the app is running into
+a browser and nginx engine will automatically expose the required port.

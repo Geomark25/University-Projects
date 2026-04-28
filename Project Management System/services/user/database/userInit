@@ -1,0 +1,51 @@
+DO $$ BEGIN
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'userrole') THEN
+        CREATE TYPE userrole AS ENUM ('ADMIN', 'MEMBER');
+    END IF;
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'userstate') THEN
+        CREATE TYPE userstate AS ENUM ('ACTIVE', 'INACTIVE', 'DEACTIVATED', 'DELETED');
+    END IF;
+END $$;
+
+CREATE TABLE IF NOT EXISTS users (
+    user_id SERIAL PRIMARY KEY,
+    username VARCHAR UNIQUE NOT NULL,
+    email VARCHAR UNIQUE NOT NULL,
+    hashed_password VARCHAR NOT NULL,
+    first_name VARCHAR NOT NULL,
+    last_name VARCHAR NOT NULL,
+    user_role userrole DEFAULT 'MEMBER' NOT NULL,
+    user_state userstate DEFAULT 'INACTIVE' NOT NULL
+);
+
+INSERT INTO users (username, email, hashed_password, first_name, last_name, user_role, user_state) VALUES
+('alex_admin', 'alex@pm.com', 'scrypt_hash_1', 'Alex', 'Vance', 'ADMIN', 'ACTIVE'),
+('sarah_lead', 'sarah@pm.com', 'scrypt_hash_2', 'Sarah', 'Connor', 'MEMBER', 'ACTIVE'),
+('john_dev', 'john@pm.com', 'scrypt_hash_3', 'John', 'Doe', 'MEMBER', 'ACTIVE'),
+('jane_qa', 'jane@pm.com', 'scrypt_hash_4', 'Jane', 'Smith', 'MEMBER', 'ACTIVE'),
+('mike_dev', 'mike@pm.com', 'scrypt_hash_5', 'Mike', 'Ross', 'MEMBER', 'ACTIVE'),
+('rachel_z', 'rachel@pm.com', 'scrypt_hash_6', 'Rachel', 'Zane', 'MEMBER', 'ACTIVE'),
+('harvey_s', 'harvey@pm.com', 'scrypt_hash_7', 'Harvey', 'Specter', 'ADMIN', 'ACTIVE'),
+('donna_p', 'donna@pm.com', 'scrypt_hash_8', 'Donna', 'Paulsen', 'ADMIN', 'ACTIVE'),
+('louis_l', 'louis@pm.com', 'scrypt_hash_9', 'Louis', 'Litt', 'MEMBER', 'ACTIVE'),
+('katrina_b', 'katrina@pm.com', 'scrypt_hash_10', 'Katrina', 'Bennett', 'MEMBER', 'ACTIVE'),
+('bruce_w', 'bruce@pm.com', 'scrypt_hash_11', 'Bruce', 'Wayne', 'MEMBER', 'ACTIVE'),
+('clark_k', 'clark@pm.com', 'scrypt_hash_12', 'Clark', 'Kent', 'MEMBER', 'ACTIVE'),
+('diana_p', 'diana@pm.com', 'scrypt_hash_13', 'Diana', 'Prince', 'MEMBER', 'ACTIVE'),
+('barry_a', 'barry@pm.com', 'scrypt_hash_14', 'Barry', 'Allen', 'MEMBER', 'ACTIVE'),
+('arthur_c', 'arthur@pm.com', 'scrypt_hash_15', 'Arthur', 'Curry', 'MEMBER', 'ACTIVE'),
+('victor_s', 'victor@pm.com', 'scrypt_hash_16', 'Victor', 'Stone', 'MEMBER', 'ACTIVE'),
+('hal_j', 'hal@pm.com', 'scrypt_hash_17', 'Hal', 'Jordan', 'MEMBER', 'ACTIVE'),
+('tony_s', 'tony@pm.com', 'scrypt_hash_18', 'Tony', 'Stark', 'ADMIN', 'ACTIVE'),
+('steve_r', 'steve@pm.com', 'scrypt_hash_19', 'Steve', 'Rogers', 'MEMBER', 'ACTIVE'),
+('nat_r', 'nat@pm.com', 'scrypt_hash_20', 'Natasha', 'Romanoff', 'MEMBER', 'ACTIVE'),
+('bruce_b', 'bruce_b@pm.com', 'scrypt_hash_21', 'Bruce', 'Banner', 'MEMBER', 'ACTIVE'),
+('wanda_m', 'wanda@pm.com', 'scrypt_hash_22', 'Wanda', 'Maximoff', 'MEMBER', 'ACTIVE'),
+('pietro_m', 'pietro@pm.com', 'scrypt_hash_23', 'Pietro', 'Maximoff', 'MEMBER', 'ACTIVE'),
+('vision_v', 'vision@pm.com', 'scrypt_hash_24', 'Vision', 'Android', 'MEMBER', 'ACTIVE'),
+('sam_w', 'sam@pm.com', 'scrypt_hash_25', 'Sam', 'Wilson', 'MEMBER', 'ACTIVE'),
+('bucky_b', 'bucky@pm.com', 'scrypt_hash_26', 'Bucky', 'Barnes', 'MEMBER', 'ACTIVE'),
+('scott_l', 'scott@pm.com', 'scrypt_hash_27', 'Scott', 'Lang', 'MEMBER', 'ACTIVE'),
+('hope_v', 'hope@pm.com', 'scrypt_hash_28', 'Hope', 'VanDyne', 'MEMBER', 'ACTIVE'),
+('t_challa', 't@pm.com', 'scrypt_hash_29', 'T', 'Challa', 'ADMIN', 'ACTIVE'),
+('shuri_w', 'shuri@pm.com', 'scrypt_hash_30', 'Shuri', 'Wakanda', 'MEMBER', 'ACTIVE');
